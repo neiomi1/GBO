@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.calculator.CalculatorController">
+   <children>
+      <Pane layoutX="-15.0" layoutY="-39.0" prefHeight="335.0" prefWidth="200.0">
+         <children>
+            <Button layoutX="45.0" layoutY="88.0" mnemonicParsing="false" onAction="#clear" text="CLEAR" />
+            <TextField fx:id="display" editable="false" layoutX="26.0" layoutY="51.0" />
+            <Button layoutX="108.0" layoutY="88.0" mnemonicParsing="false" onAction="#delete" text="DELETE" />
+            <Button layoutX="51.0" layoutY="127.0" mnemonicParsing="false" onAction="#buttonClicked" text="." />
+            <Button layoutX="83.0" layoutY="127.0" mnemonicParsing="false" onAction="#calculate" text="=" />
+            <Button layoutX="117.0" layoutY="127.0" mnemonicParsing="false" onAction="#buttonClicked" text="(" />
+            <Button layoutX="143.0" layoutY="127.0" mnemonicParsing="false" onAction="#buttonClicked" text=")" />
+            <Button layoutX="49.0" layoutY="175.0" mnemonicParsing="false" onAction="#buttonClicked" text="7" />
+            <Button layoutX="84.0" layoutY="175.0" mnemonicParsing="false" onAction="#buttonClicked" text="8" />
+            <Button layoutX="115.0" layoutY="175.0" mnemonicParsing="false" onAction="#buttonClicked" text="9" />
+            <Button layoutX="140.0" layoutY="175.0" mnemonicParsing="false" onAction="#buttonClicked" text="+" />
+            <Button layoutX="49.0" layoutY="217.0" mnemonicParsing="false" onAction="#buttonClicked" text="4" />
+            <Button layoutX="86.0" layoutY="217.0" mnemonicParsing="false" onAction="#buttonClicked" text="5" />
+            <Button layoutX="115.0" layoutY="217.0" mnemonicParsing="false" onAction="#buttonClicked" text="6" />
+            <Button layoutX="142.0" layoutY="217.0" mnemonicParsing="false" onAction="#buttonClicked" text="-" />
+            <Button layoutX="49.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonClicked" text="1" />
+            <Button layoutX="86.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonClicked" text="2" />
+            <Button layoutX="115.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonClicked" text="3" />
+            <Button layoutX="141.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonClicked" text="*" />
+            <Button layoutX="46.0" layoutY="298.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="25.0" prefWidth="76.0" text="0" />
+            <Button layoutX="142.0" layoutY="298.0" mnemonicParsing="false" onAction="#buttonClicked" text="/" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

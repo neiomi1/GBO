@@ -1,0 +1,12 @@
+bin
+CheckstyleConfig1.xml
+EclipseFormatProfile1.xml
+JRE System Library
+JavaFX
+*.class
+*.checkstyle
+*.zip
+.settings
+*.jardesc
+.project
+.classpath
