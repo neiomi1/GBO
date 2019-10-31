@@ -57,4 +57,12 @@ module gbo
     opens gui.calculator;
 
     exports ueb.ueb04.a01;
+
+    exports ueb.ueb04.a02;
+
+    exports ueb.ueb04.a03;
+
+    exports ueb.ueb04.a04;
+
+    opens ueb.ueb04.a05;
 }
