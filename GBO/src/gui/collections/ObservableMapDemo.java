@@ -1,11 +1,7 @@
 package gui.collections;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
+import java.util.*;
+import javafx.collections.*;
 
 public class ObservableMapDemo
 {
@@ -14,14 +10,15 @@ public class ObservableMapDemo
         Map<String, String> map = new HashMap<String, String>();
         ObservableMap<String, String> observableMap = FXCollections.observableMap(map);
         observableMap.addListener
-
-        (new MapChangeListener<String, String>()
-        {
-            public void onChanged(MapChangeListener.Change<? extends String, ? extends String> change)
+        (
+            new MapChangeListener<String, String>()
             {
-                System.out.println("Map wurde geändert");
+                public void onChanged(MapChangeListener.Change<? extends String, ? extends String> change)
+                {
+                    System.out.println("Map wurde geändert");
+                }
             }
-        });
+        );
 
         observableMap.put("Schlüssel 1", "Wert 1");
         System.out.println("Größe: " + observableMap.size());

@@ -10,9 +10,9 @@ public class Asset1ChangedLazy
 {
     private static final double FACTOR = 1.1;
 
-    private double accountBalance;
+    private double euro;
 
-    private double accountDollar;
+    private double dollars;
 
     private DoubleProperty accountBalanceEuroProperty;
 
@@ -20,15 +20,15 @@ public class Asset1ChangedLazy
 
     public Asset1ChangedLazy(double initialValue)
     {
-        accountBalance = initialValue;
-        accountDollar = initialValue * FACTOR;
+        euro = initialValue;
+        dollars = initialValue * FACTOR;
     }
 
     public double getAccountBalanceEuro()
     {
         if (accountBalanceEuroProperty == null)
         {
-            return accountBalance;
+            return euro;
         }
         else
         {
@@ -40,7 +40,7 @@ public class Asset1ChangedLazy
     {
         if (accountBalanceDollarProperty == null)
         {
-            return accountDollar;
+            return dollars;
         }
         else
         {
@@ -52,7 +52,8 @@ public class Asset1ChangedLazy
     {
         if (accountBalanceEuroProperty == null)
         {
-            accountBalance = newValue;
+            euro = newValue;
+            dollars = euro * FACTOR;
 
         }
         else
@@ -65,8 +66,8 @@ public class Asset1ChangedLazy
     {
         if (accountBalanceEuroProperty == null)
         {
-            accountBalanceEuroProperty = new SimpleDoubleProperty(accountBalance);
-            accountBalanceDollarProperty = new ReadOnlyDoubleWrapper();
+            accountBalanceEuroProperty = new SimpleDoubleProperty(euro);
+            accountBalanceDollarProperty = new ReadOnlyDoubleWrapper(dollars);
             accountBalanceDollarProperty.bind(Bindings.multiply(accountBalanceEuroProperty, FACTOR));
 
         }
@@ -77,8 +78,8 @@ public class Asset1ChangedLazy
     {
         if (accountBalanceDollarProperty == null)
         {
-            accountBalanceEuroProperty = new SimpleDoubleProperty(accountBalance);
-            accountBalanceDollarProperty = new ReadOnlyDoubleWrapper();
+            accountBalanceEuroProperty = new SimpleDoubleProperty(euro);
+            accountBalanceDollarProperty = new ReadOnlyDoubleWrapper(dollars);
             accountBalanceDollarProperty.bind(Bindings.multiply(accountBalanceEuroProperty, FACTOR));
         }
         return accountBalanceDollarProperty.getReadOnlyProperty();

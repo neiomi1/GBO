@@ -95,10 +95,9 @@ public class Timer
         // System.out.println(link.size() + " | " + array.size());
         List<List<Integer>> l = List.of(link, array);
         int repetitions = 100000;
-
         for (List<Integer> list : l)
         {
-            if (l instanceof ArrayList)
+            if (list instanceof ArrayList)
             {
                 System.out.println("---------------ArrayList tests----------------");
                 System.out.println("Iterationen: " + repetitions);
@@ -108,7 +107,6 @@ public class Timer
                 System.out.println("---------------LinkedList tests-----------------");
                 System.out.println("Iterationen: " + repetitions);
             }
-
             System.out.println("Anfügen an den Anfang\n Zeit: " + addAtStartTest(list, repetitions));
             System.out.println("Anfügen an das Ende\n Zeit: " + addAtEndTest(list, repetitions));
             System.out.println("Größe der Liste: " + list.size());
