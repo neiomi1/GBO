@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class VBoxChangingButtons extends Application
 {
-
+    // Analog zu HBox
     public void start(Stage primaryStage)
     {
         VBox root = new VBox();

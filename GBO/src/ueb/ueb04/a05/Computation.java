@@ -1,3 +1,4 @@
+// Copy paste aus Calculator gui
 package ueb.ueb04.a05;
 
 import javax.script.ScriptEngine;

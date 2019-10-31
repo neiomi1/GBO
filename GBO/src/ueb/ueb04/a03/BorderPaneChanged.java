@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+// Wie Beispiel nur mit mehr Max width etc.
 public class BorderPaneChanged extends Application
 {
     public void start(Stage primaryStage)

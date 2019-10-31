@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 
 public class CalculatorReforgedController
 {
+    // Analog zum 1sten Controller
+
     @FXML
     private TextField display;
 

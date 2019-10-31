@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+// Wachsende Buttons durch Scene Builder
 public class CalculatorReforged extends Application
 {
     public void start(Stage primaryStage)

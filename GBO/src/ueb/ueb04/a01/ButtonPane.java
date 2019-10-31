@@ -22,6 +22,8 @@ public class ButtonPane extends Application
             root.getChildren().add(b);
         }
 
+        // Dynamisch anpassende Buttons durch Height & Width Properties. 10
+        // buttons, 1ster fix -> /9
         ReadOnlyDoubleProperty height = root.heightProperty();
         ReadOnlyDoubleProperty width = root.widthProperty();
 

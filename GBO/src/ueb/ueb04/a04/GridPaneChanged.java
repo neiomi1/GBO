@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+// Analog zum 1. Calculator. Col & Row Constraints in FXML
 public class GridPaneChanged extends Application
 {
     public void start(Stage primaryStage)
