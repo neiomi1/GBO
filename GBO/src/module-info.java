@@ -5,7 +5,9 @@ module gbo
     requires javafx.fxml;
 
     requires transitive javafx.graphics;
+
     requires java.scripting;
+
     requires javafx.base;
 
     exports gui.animation;
@@ -53,4 +55,6 @@ module gbo
     exports gui.plusminus;
 
     opens gui.calculator;
+
+    exports ueb.ueb04.a01;
 }
