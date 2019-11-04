@@ -1,0 +1,89 @@
+ElemA <- ElemB <- ElemC
+
+workOnAllElements(List<? extends ElemB< list, Executor <? extends ElemB> ex)
+
+class ExemplareImpl implements Executor<ElemC>
+{
+	public void execute(ElemC elem)
+	{
+	.
+	.
+	.
+	}
+	}
+}
+
+############################################
+
+Pagination: Container in JavaFx -> pages
+wichtigste Methode: setPageFactory( Callback<Integer, Node> function )
+Function:	0 -> Seite 0
+			1 -> Seite 1
+			2 -> Seite 2
+			
+Generisches Interface Callback: P -> R
+public interface Callback<P,R>
+{
+	public R call(P p);
+}
+
+class PageFactory implements Callback<Integer, Node>
+{
+	public Node call(Integer num){ return getPage();}
+}
+
+Pagination pagin = new Pagination();
+pagin.setPageFactory((Integer i) -> getPage(i));
+# Äquivalent zu:
+pagin.setPageFactory((Integer i) -> return getPage(i););
+
+...
+
+# Problem in diesem Fall: Seiten werden jedes mal neu gebaut
+public static Node getPage(Integer i)
+{
+	switch(i)
+	{
+		case 0:
+			.
+			.
+			.
+			return ...;
+		case 1:
+			.
+			.
+			.
+			return ...;
+	}
+}
+
+# Seiten sollten dementsprechend gemerkt werden (Attribute!)
+# int geht auch, da Integer per Autoboxing zu int wird
+
+###################################################################
+
+Generic Methoden
+
+class Swapping<T>
+{
+	public void exchange(GenericClass<T> obj1, GenericClass<T> obj2)
+	{
+		T t1 = obj1.getContent();
+		T t2 = obj2.getContent();
+		obj1.setContent(t2);
+		obj2.setContent(t1);
+	}
+}	
+
+
+# Besser:
+
+class Swapping2
+{
+	public static <T> void exchange(GenericClass<T> obj1, GenericClass<T> obj2)
+	{
+		...
+	}
+}
+
+# Kann ohne Objekterzeugung funktionieren :)
