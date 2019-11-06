@@ -14,7 +14,7 @@ public class VBoxChangingButtons extends Application
     // Analog zu HBox
     public void start(Stage primaryStage)
     {
-        VBox root = new VBox();
+        VBox root = new VBox(10);
         Insets ins = new Insets(10);
         root.setPadding(ins);
         root.setAlignment(Pos.TOP_RIGHT);

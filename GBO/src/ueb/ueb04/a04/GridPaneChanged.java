@@ -21,13 +21,34 @@ public class GridPaneChanged extends Application
         root.setVgap(10);
         Insets ins = new Insets(10);
         root.setPadding(ins);
+
+        // RowConstraints r = new RowConstraints();
+        //
+        // root.getRowConstraints().add(r);
+        // Button test = new Button("test");
+        // Button test2 = new Button("test");
+        // root.add(test, 1, 1);
+        // root.add(test2, 1, 2);
+        // for (int j = 1; j <= root.getRowCount(); j++)
+        // {
+        // System.out.println(j);
+        // System.out.println(root.getRowCount());
+        // RowConstraints rw = new RowConstraints();
+        // System.out.println("-constraint- " + root.getRowCount());
+        // root.getRowConstraints().add(rw);
+        // System.out.println("-constraint add- " + root.getRowCount());
+        // rw.setVgrow(Priority.ALWAYS);
+        // }
+
         for (int i = 0; i < 6; i++)
         {
             ColumnConstraints column = new ColumnConstraints();
             column.setPercentWidth(100 / 5);
+            // column.setHgrow(Priority.ALWAYS);
             root.getColumnConstraints().add(column);
             RowConstraints row = new RowConstraints();
             row.setPercentHeight(100 / 5);
+            // row.setVgrow(Priority.ALWAYS);
             root.getRowConstraints().add(row);
         }
 
@@ -43,6 +64,19 @@ public class GridPaneChanged extends Application
                 }
             }
         }
+        //
+        // for (int j = 1; j <= root.getRowCount(); j++)
+        // {
+        // System.out.println(j);
+        // System.out.println(root.getRowCount());
+        // RowConstraints rw = new RowConstraints();
+        // System.out.println("-constraint- " + root.getRowCount());
+        // rw.setMaxHeight(Double.MAX_VALUE);
+        // root.getRowConstraints().add(rw);
+        // System.out.println("-constraint add- " + root.getRowCount());
+        // rw.setVgrow(Priority.ALWAYS);
+        // }
+
         Button b;
         b = new Button("Button 6/*");
         root.setHalignment(b, HPos.CENTER);
