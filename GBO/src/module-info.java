@@ -57,6 +57,8 @@ module gbo
 
     opens gui.calculator;
 
+    exports gui.pizza;
+
     exports ueb.ueb04.a01;
 
     exports ueb.ueb04.a02;
