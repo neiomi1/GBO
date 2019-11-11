@@ -10,6 +10,4 @@ module code
     requires java.scripting;
 
     requires javafx.base;
-
-    exports code;
 }
