@@ -49,12 +49,7 @@ public class Pizza extends Application
         // config.getNumberOfDefaultToppings());
         for (int i = 0; i < config.getToppingNames().length; i++)
         {
-            int n = i % 2;
-            int x = i;
-            if (n == 1)
-            {
-                x -= 1;
-            }
+
             CheckBox temp = new CheckBox(config.getToppingNames()[i]);
             // System.out.println(config.getToppingNames()[i] + " " + n + " " +
             // i);
@@ -64,7 +59,7 @@ public class Pizza extends Application
                 temp.setDisable(true);
             }
             toppingSelection.add(temp);
-            toppingPane.add(temp, n, x);
+            toppingPane.add(temp, i % 3, i / 3);
         }
         for (int i = 0; i < config.getSizeNames().length; i++)
         {

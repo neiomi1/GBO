@@ -44,7 +44,7 @@ public class Configuration
         {
             throw new IllegalArgumentException("Length of Input does not match");
         }
-        if (toppingNames.length == toppingPrices.length && numberOfDefaultToppings <= toppingNames.length)
+        if (toppingNames.length == toppingPrices.length && numberOfDefaultToppings <= toppingNames.length && toppingNames.length >= 0)
         {
             this.toppingNames = toppingNames;
             this.toppingPrices = toppingPrices;

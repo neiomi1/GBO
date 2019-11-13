@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HyperlinkCounter extends Application
@@ -19,7 +19,7 @@ public class HyperlinkCounter extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Pane root = new Pane();
+        VBox root = new VBox();
         Hyperlink link = new Hyperlink("Dies ist ein ziemlich langer Hyperlink mit ziemlich viel Text");
         Label counter = new Label("Hallo Welt zum 0.");
         counter.setLayoutY(50);
@@ -33,20 +33,17 @@ public class HyperlinkCounter extends Application
         BooleanProperty checkboxVisited = visit.selectedProperty();
         BooleanProperty linkVisited = link.visitedProperty();
 
+        BooleanProperty textWrapper = newline.selectedProperty();
+        BooleanProperty textWrapperHyperlink = link.wrapTextProperty();
+
+        // textWrapperHyperlink.bindBidirectional(textWrapper);
+        textWrapper.bindBidirectional(textWrapperHyperlink);
         checkboxVisited.bindBidirectional(linkVisited);
 
         IntegerProperty count = new SimpleIntegerProperty(0);
         count.set(0);
 
         count.addListener((p, oldValue, newValue) -> counter.setText("Hallo Welt zum " + newValue + "."));
-
-        // visit.setOnAction(new EventHandler<ActionEvent>()
-        // {
-        // public void handle(ActionEvent e)
-        // {
-        // link.visitedProperty().set(!link.visitedProperty().get());
-        // }
-        // });
 
         underline.setOnAction(new EventHandler<ActionEvent>()
         {
@@ -56,13 +53,13 @@ public class HyperlinkCounter extends Application
             }
         });
 
-        newline.setOnAction(new EventHandler<ActionEvent>()
-        {
-            public void handle(ActionEvent e)
-            {
-                link.wrapTextProperty().set(!link.wrapTextProperty().get());
-            }
-        });
+        // newline.setOnAction(new EventHandler<ActionEvent>()
+        // {
+        // public void handle(ActionEvent e)
+        // {
+        // link.wrapTextProperty().set(!link.wrapTextProperty().get());
+        // }
+        // });
         link.setOnAction(new EventHandler<ActionEvent>()
         {
             public void handle(ActionEvent e)
