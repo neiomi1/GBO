@@ -1,4 +1,4 @@
-package ueb.ueb06.a01;
+package gui.country.combo;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
