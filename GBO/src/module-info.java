@@ -70,4 +70,6 @@ module gbo
     opens ueb.ueb04.a05;
 
     exports ueb.ueb05.a01;
+
+    exports ueb.ueb06.a01;
 }
