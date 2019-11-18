@@ -212,6 +212,7 @@ public class CountryInfo extends Application
             try
             {
                 countryList.remove(countrySelector.getSelectionModel().getSelectedIndex());
+                countrySelector.getSelectionModel().select(0);
             }
             catch (IndexOutOfBoundsException iE)
             {
@@ -220,7 +221,6 @@ public class CountryInfo extends Application
                 // countrySelector.setPlaceholder(new Label("Keine L\u00e4nder
                 // vorhanden"));
             }
-            countrySelector.getSelectionModel().select(0);
         });
         layout.getChildren().addAll(countrySelector, exactNumbers, labelgrid, addBox, loeschen);
         primaryStage.setTitle("L\u00e4nder-Informationen");

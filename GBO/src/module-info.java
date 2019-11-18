@@ -75,5 +75,9 @@ module gbo
 
     exports ueb.ueb06.a02;
 
+    exports ueb.ueb06.a03;
+
+    exports ueb.ueb06.a04;
+
     exports gui.country.combo;
 }
