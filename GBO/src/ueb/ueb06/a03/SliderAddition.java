@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class SliderAddition extends Application
 {
 
+    // Slider. snap to ticks
     @Override
     public void start(Stage primaryStage) throws Exception
     {
