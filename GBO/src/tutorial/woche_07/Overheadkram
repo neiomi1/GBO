@@ -2,7 +2,7 @@ TableView:
 
 Spalte:
 
-�berschrift
+Überschrift
 Daten
 Daten
 Daten
@@ -17,7 +17,7 @@ l -> l.getValue().getX();
 or
 (S l) -> l.getValue().getX();
 
-!! getter M�ssen Properties zur�ckgeben !!
+!! getter Müssen Properties zurückgeben !!
 -> Es ist sinnvoll bereits in der Klasse AttributProperties zu nutzen.
 Class S{
 private <> x;
