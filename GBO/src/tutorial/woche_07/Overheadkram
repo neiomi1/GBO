@@ -1,0 +1,36 @@
+TableView:
+
+Spalte:
+
+�berschrift
+Daten
+Daten
+Daten
+
+Model - Generisch, nimmt Menge von Elementen<S> entgegen.
+		für jede Spalte 1 Datentyp <S,T> mit Funktion CallDataFeatures<S> -> Observable<T>  - Wie PaginationFactory von Callback implementiert
+
+tableView.addColumn(String �berschrift, Callable<S, T>);
+
+Callable lambda:
+l -> l.getValue().getX();
+or
+(S l) -> l.getValue().getX();
+
+!! getter M�ssen Properties zur�ckgeben !!
+-> Es ist sinnvoll bereits in der Klasse AttributProperties zu nutzen.
+Class S{
+private <> x;
+private <> y;
+
+[...]
+public <> getX();
+public <> getY();
+[...]
+}
+
+
+
+TableView
+Daten                     	Spalten
+							getColumns().add(TableColumn);
