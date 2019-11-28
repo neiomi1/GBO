@@ -45,6 +45,8 @@ module gbo
 
     exports gui.mvp.login.fxml.di;
 
+    exports gui.mvp.vocabtrainer;
+
     exports gui.properties;
 
     exports gui.shapes;

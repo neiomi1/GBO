@@ -1,4 +1,4 @@
-package ueb.ueb07.a02;
+package gui.mvp.vocabtrainer;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
