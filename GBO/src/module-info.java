@@ -47,6 +47,8 @@ module gbo
 
     exports gui.mvp.vocabtrainer;
 
+    exports gui.mvp.basicquiz;
+
     exports gui.properties;
 
     exports gui.shapes;
@@ -86,4 +88,5 @@ module gbo
     exports tutorial.woche_06;
 
     exports ueb.ueb07.a02;
+
 }

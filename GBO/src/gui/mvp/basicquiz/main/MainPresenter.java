@@ -1,0 +1,71 @@
+package gui.mvp.basicquiz.main;
+
+import gui.mvp.basicquiz.game.QuizPresenter;
+import gui.mvp.basicquiz.model.Model;
+import gui.mvp.basicquiz.overview.OverviewPresenter;
+import javafx.scene.layout.Pane;
+
+public class MainPresenter
+{
+
+    private MainView mainView;
+
+    private OverviewPresenter overviewPresenter;
+
+    private QuizPresenter quizPresenter;
+
+    private Model model;
+
+    private int selectedId;
+
+    public MainPresenter()
+    {
+    }
+
+    public void setModel(Model model)
+    {
+        this.model = model;
+    }
+
+    public void setMainView(MainView mainView)
+    {
+        this.mainView = mainView;
+        this.quizPresenter.setCurrentQuestion();
+        this.mainView.setContent(this.quizPresenter.getCurrentQuestion());
+    }
+
+    public void setOverviewPresenter(OverviewPresenter overviewPresenter)
+    {
+        this.overviewPresenter = overviewPresenter;
+    }
+
+    public void setQuizPresenter(QuizPresenter quizPresenter)
+    {
+        this.quizPresenter = quizPresenter;
+    }
+
+    public void startQuiz()
+    {
+        model.newQuiz();
+        quizPresenter.enableButton();
+        this.quizPresenter.setCurrentQuestion();
+        mainView.setContent(quizPresenter.getCurrentQuestion());
+    }
+
+    public void continueQuiz()
+    {
+        mainView.setContent(quizPresenter.getCurrentQuestion());
+    }
+
+    public void showAnswers()
+    {
+        this.selectedId = quizPresenter.getSelectedId();
+        mainView.setContent(overviewPresenter.getStatistics());
+    }
+
+    public Pane getView()
+    {
+        return this.mainView;
+    }
+
+}
