@@ -89,6 +89,8 @@ module gbo
 
     exports tutorial.woche_07;
 
+    exports tutorial.woche_08.contact;
+
     exports ueb.ueb07.a02;
 
 }
