@@ -91,6 +91,8 @@ module gbo
 
     exports tutorial.woche_08.contact;
 
+    exports tutorial.woche_08.bindingTest;
+
     exports ueb.ueb07.a02;
 
 }
