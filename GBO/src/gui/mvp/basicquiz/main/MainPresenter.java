@@ -16,8 +16,6 @@ public class MainPresenter
 
     private Model model;
 
-    private int selectedId;
-
     public MainPresenter()
     {
     }
@@ -59,7 +57,6 @@ public class MainPresenter
 
     public void showAnswers()
     {
-        this.selectedId = quizPresenter.getSelectedId();
         mainView.setContent(overviewPresenter.getStatistics());
     }
 

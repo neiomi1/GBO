@@ -63,6 +63,10 @@ module gbo
 
     exports gui.pizza;
 
+    exports gui.mvp.basicquiztable;
+
+    opens gui.mvp.basicquiztable.model;
+
     exports ueb.ueb04.a01;
 
     exports ueb.ueb04.a02;
