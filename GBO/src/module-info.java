@@ -99,4 +99,5 @@ module gbo
 
     exports ueb.ueb07.a02;
 
+    exports gui.mvp.editquiz;
 }
