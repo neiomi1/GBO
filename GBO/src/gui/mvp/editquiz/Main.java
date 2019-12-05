@@ -7,6 +7,7 @@ import gui.mvp.editquiz.game.QuizView;
 import gui.mvp.editquiz.main.MainPresenter;
 import gui.mvp.editquiz.main.MainView;
 import gui.mvp.editquiz.model.Model;
+import gui.mvp.editquiz.model.Question;
 import gui.mvp.editquiz.overview.OverviewPresenter;
 import gui.mvp.editquiz.overview.OverviewView;
 import javafx.application.Application;
@@ -29,6 +30,10 @@ public class Main extends Application
         EditorPresenter editorPresenter = new EditorPresenter();
         EditorView editorView = new EditorView();
 
+        for (Question q : model.getQuestions())
+        {
+            System.out.println(q.getIndexOfCorrectAnswer());
+        }
         mainPresenter.setModel(model);
         mainPresenter.setOverviewPresenter(overviewPresenter);
         mainPresenter.setQuizPresenter(quizPresenter);
@@ -49,7 +54,7 @@ public class Main extends Application
         editorPresenter.setModel(model);
         editorView.setEditorPresenter(editorPresenter);
 
-        Scene scene = new Scene(mainPresenter.getView(), 400, 200);
+        Scene scene = new Scene(mainPresenter.getView(), 500, 300);
         stage.setScene(scene);
         stage.setTitle("Quiz");
         stage.show();

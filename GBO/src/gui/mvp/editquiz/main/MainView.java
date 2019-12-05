@@ -29,7 +29,7 @@ public class MainView extends BorderPane
         continueQuiz = new Button("Quiz fortsetzen!");
         continueQuiz.setOnAction(e -> presenter.continueQuiz());
 
-        answerOverview = new Button("�berblick!");
+        answerOverview = new Button("\u00dcberblick!");
         answerOverview.setId("overview");
         answerOverview.setOnAction(e -> presenter.showAnswers());
 

@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -42,7 +43,7 @@ public class EditorView extends VBox
 
     private Alert alert;
 
-    private Dialog<Question> dialog = new Dialog<Question>();
+    private Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 
     private TextArea questionText = new TextArea();
 
@@ -56,7 +57,7 @@ public class EditorView extends VBox
 
     private HBox editButtons;
 
-    private Button change, cancel;
+    private ButtonType update, add, cancel;
 
     private int userdataCount;
 
@@ -69,11 +70,12 @@ public class EditorView extends VBox
         this.buttons = new HBox();
 
         this.questions = new ListView<Question>();
+        this.questions.setId("editorList");
         this.questions.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>()
         {
 
             @Override
-            public ListCell<Question> call(ListView<Question> arg0)
+            public ListCell<Question> call(ListView<Question> self)
             {
                 ListCell<Question> cell = new ListCell<Question>()
                 {
@@ -84,6 +86,10 @@ public class EditorView extends VBox
                         {
                             setText(item.getQuestion());
                         }
+                        else
+                        {
+                            setText("");
+                        }
                     }
                 };
                 return cell;
@@ -93,14 +99,14 @@ public class EditorView extends VBox
 
         this.addQuestion = new Button("Frage hinzufügen");
         this.addQuestion.setId("addQuestion");
-        this.addQuestion.setOnAction(e -> addDialog());
+        this.addQuestion.setOnAction(e -> editorPresenter.addQuestion());
 
         this.editQuestion = new Button("Frage editieren");
         this.editQuestion.setId("editQuestion");
         this.editQuestion.setOnAction(e -> editDialog());
 
         this.removeQuestion = new Button("Frage löschen");
-        this.removeQuestion.setId("removeQuestion");
+        this.removeQuestion.setId("deleteQuestion");
         this.removeQuestion.setOnAction(e -> removeDialog());
 
         this.buttons.getChildren().addAll(this.addQuestion, this.editQuestion, this.removeQuestion);
@@ -118,17 +124,20 @@ public class EditorView extends VBox
         editButtons = new HBox();
         editButtons.setAlignment(Pos.BASELINE_RIGHT);
 
-        this.change = new Button("ndern");
-        this.change.setOnAction(e -> editorPresenter.saveQuestion(dialogBox));
+        this.questionText.setId("dialogQuestion");
 
-        this.cancel = new Button("Abbrechen");
-        this.cancel.setOnAction(e -> dialog.close());
+        this.add = new ButtonType("Hinzuf\u00fcgen", ButtonData.APPLY);
+        this.update = new ButtonType("\u00c4ndern", ButtonData.APPLY);
+        this.cancel = new ButtonType("Abbrechen", ButtonData.CANCEL_CLOSE);
 
-        editButtons.getChildren().addAll(cancel, change);
+        // editButtons.getChildren().addAll(cancel, change);
 
-        dialogBox.getChildren().addAll(useless, questionText, addAnswer, answers, editButtons);
+        dialogBox.getChildren().addAll(useless, questionText, addAnswer, answers);
 
         dialog.getDialogPane().setContent(dialogBox);
+
+        // dialog.setScene(new Scene(dialogBox));
+        // dialog.setTitle("Dialog");
 
     }
 
@@ -166,7 +175,11 @@ public class EditorView extends VBox
         alert.setHeaderText("");
         alert.setContentText("Es muss eine Frage ausgew\u00e4hlt werden!");
 
-        alert.showAndWait();
+        Optional<ButtonType> b = alert.showAndWait();
+        if (b.isPresent() && b.get() == ButtonType.OK)
+        {
+            alert.close();
+        }
     }
 
     public ButtonType showDeleteQuestionAlert()
@@ -176,13 +189,37 @@ public class EditorView extends VBox
         alert.setHeaderText("");
         alert.setContentText("Soll diese Frage wirklich gel\u00f6scht werden?");
 
-        Optional<ButtonType> option = alert.showAndWait();
-
-        return option.get();
+        Optional<ButtonType> b = alert.showAndWait();
+        if (b.isPresent())
+        {
+            return b.get();
+        }
+        else
+        {
+            return null;
+        }
 
     }
 
-    public void showEditDialog(Question question)
+    public ButtonType showAddDialog()
+    {
+        userdataCount = 0;
+        correctAnswerToggle.getToggles().clear();
+        answers.getChildren().clear();
+        useless.setText("Frage: ");
+        dialog.getDialogPane().getButtonTypes().setAll(add, cancel);
+        Optional<ButtonType> b = dialog.showAndWait();
+        if (b.isPresent())
+        {
+            return b.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public ButtonType showEditDialog(Question question)
     {
         correctAnswerIndex = editorPresenter.getCorrectAnswer();
         System.out.println(correctAnswerIndex);
@@ -193,12 +230,21 @@ public class EditorView extends VBox
 
         useless.setText("Frage: ");
         questionText.setText(question.getQuestion());
-
+        dialog.getDialogPane().getButtonTypes().setAll(update, cancel);
         for (String answer : question.getPossibleAnswers())
         {
             addAnswerFrame(answer);
         }
-        dialog.showAndWait();
+        Optional<ButtonType> b = dialog.showAndWait();
+        if (b.isPresent())
+        {
+            return b.get();
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
     public void addAnswerFrame(String s)
@@ -243,7 +289,13 @@ public class EditorView extends VBox
 
     public int getCorrectAnswer()
     {
-        System.out.println(correctAnswerToggle.getSelectedToggle().getUserData());
-        return Integer.parseInt(correctAnswerToggle.getSelectedToggle().getUserData().toString());
+        try
+        {
+            return Integer.parseInt(correctAnswerToggle.getSelectedToggle().getUserData().toString());
+        }
+        catch (NullPointerException e)
+        {
+            return -1;
+        }
     }
 }

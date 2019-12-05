@@ -38,6 +38,16 @@ public class Question
         return indexOfCorrectAnswer;
     }
 
+    public int getAnswers()
+    {
+        return answers;
+    }
+
+    public int getCorrectAnswers()
+    {
+        return correctAnswers;
+    }
+
     public void setQuestion(String question)
     {
         this.question = question;

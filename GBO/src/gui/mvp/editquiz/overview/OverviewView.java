@@ -3,9 +3,13 @@ package gui.mvp.editquiz.overview;
 import java.util.List;
 
 import gui.mvp.editquiz.model.Question;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 public class OverviewView extends VBox
@@ -14,18 +18,36 @@ public class OverviewView extends VBox
 
     private OverviewPresenter presenter;
 
-    private ListView<Question> questions;
+    private TableView<Question> questions;
+
+    private ObservableList<Question> data;
 
     private Button deleteAnswers;
 
     public OverviewView()
     {
-        greet = new Label("�bersicht");
+        data = FXCollections.observableArrayList();
+        greet = new Label("\u00dcbersicht");
 
-        questions = new ListView<Question>();
-        questions.setId("overviewList");
+        questions = new TableView<Question>(data);
+        questions.setId("overviewTable");
 
-        deleteAnswers = new Button("Ergebnisse l�schen");
+        TableColumn<Question, String> nameCol = new TableColumn<Question, String>("Frage");
+        nameCol.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
+        questions.getColumns().add(nameCol);
+        nameCol.setId("questionCol");
+
+        TableColumn<Question, Number> answerCol = new TableColumn<Question, Number>("Antworten");
+        answerCol.setCellValueFactory(new PropertyValueFactory<Question, Number>("answers"));
+        questions.getColumns().add(answerCol);
+        answerCol.setId("totalAnswerCol");
+
+        TableColumn<Question, Number> correctAnswerCol = new TableColumn<Question, Number>("Richtige Antworten");
+        correctAnswerCol.setCellValueFactory(new PropertyValueFactory<Question, Number>("correctAnswers"));
+        questions.getColumns().add(correctAnswerCol);
+        correctAnswerCol.setId("correctAnswerCol");
+
+        deleteAnswers = new Button("Ergebnisse l\u00f6schen");
         deleteAnswers.setId("deleteHistory");
 
         deleteAnswers.setOnAction(e -> presenter.clear());
@@ -39,7 +61,13 @@ public class OverviewView extends VBox
 
     public void showStats(List<Question> list)
     {
-        this.questions.getItems().setAll(list);
+        this.data.clear();
+        System.out.println("List größe");
+        System.out.println(list.size());
+        for (Question q : list)
+        {
+            this.data.add(q);
+        }
     }
 
 }
