@@ -170,7 +170,7 @@ public class EditorView extends VBox
 
     public void showNoSelectedQuestionAlert()
     {
-        alert.setAlertType(AlertType.INFORMATION);
+        alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText("");
         alert.setContentText("Es muss eine Frage ausgew\u00e4hlt werden!");
@@ -184,7 +184,7 @@ public class EditorView extends VBox
 
     public ButtonType showDeleteQuestionAlert()
     {
-        alert.setAlertType(AlertType.CONFIRMATION);
+        alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Frage");
         alert.setHeaderText("");
         alert.setContentText("Soll diese Frage wirklich gel\u00f6scht werden?");
