@@ -1,0 +1,49 @@
+showAndWait();
+
+warten auf Ereignis => warten auf Eingabe von der Tastatur -> Kommando
+
+Fallunterscheidung =>  welches Kommando ist eingegeben worden und soll ausgeführt werden
+
+Ereignisbehandlung ohne showAndWait => Kommandos, die nur etwas ausgeben ( zb. ls)
+
+Ereignisbehandlung mit showAndWait => Kommandos, die Eingabe benötigen ( quiz: 3 * 6 = ?)
+
+
+showAndWait pseudocode beispiel:
+
+do
+{
+readCommandLine();
+führe Kommando aus gemäß HashMap
+} (!Kommando == Terminierungskommandos)
+
+
+actual code:
+
+public String showAndWait()
+{
+	String cmd, params;
+	do
+	{
+		System.out.print("> ");
+		String[] input = readCommandLine();
+		cmd = input[0];
+		params = input[1];
+		Executor executor = commandMapper.get(cmd);
+		if(executor != null)
+		{
+			executor.execute(params);
+		}
+		else if(!terminationCommands.contains(cmd))
+		{
+			System.out.println(cmd + ": invalid command");
+		}
+		
+	}
+	while(!terminationCommands.contains(cmd));
+	return null;
+	
+	
+	
+	
+***********************************************************************************

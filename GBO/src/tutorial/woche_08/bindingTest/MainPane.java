@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,9 +27,9 @@ public class MainPane extends Application
 
     private ReadOnlyDoubleProperty parentWidth, parentHeight;
 
-    // Der Grundlegende Aufbau sind zwei Panes in einer HauptPane, ähnlich einer
+    // Der Grundlegende Aufbau sind zwei Panes in einer HauptPane, ï¿½hnlich einer
     // BorderPane
-    // Beide sollen sich per Binding an die Größe der HauptPane (root) anpassen.
+    // Beide sollen sich per Binding an die Grï¿½ï¿½e der HauptPane (root) anpassen.
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -41,35 +42,6 @@ public class MainPane extends Application
         topArea.setBackground(new Background(new BackgroundFill(Color.DARKRED, CornerRadii.EMPTY, Insets.EMPTY)));
         topHeight = topArea.prefHeightProperty();
         topWidth = topArea.prefWidthProperty();
-
-        topHeight.bind(parentHeight.divide(8));
-
-        topHeight.addListener((prop, oldVal, newVal) ->
-        {
-            System.out.println("-----------------------------------");
-            System.out.println("topHeight change:");
-            System.out.println(oldVal + " " + newVal);
-            contentArea.setLayoutY((double) newVal * 1.5);
-        });
-
-        topWidth.bind(parentWidth);
-
-        topWidth.addListener((prop, oldVal, newVal) ->
-        {
-            // Hier liegt das Problem: contentArea.getWidth() gibt 0 zurück bis
-            // das Fenster in der Breite verändert wird.
-            // Ich kann aufgrund der Bindings den Wert anfangs nicht festlegen
-            // und will dies eigentlich auch nicht, da
-            // ich die Fenstergröße gerne aus einer Property Datei einlesen
-            // würde, dies also nicht Hardcoden will.
-
-            contentArea.setLayoutX(((double) newVal - contentArea.getWidth()) / 2);
-            System.out.println("****************************content width*********************");
-            Pane p = (Pane) contentArea.getChildren().get(0);
-            System.out.println(p.getWidth());
-
-        });
-
         contentArea = new Pane();
         contentArea.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         VBox content = new VBox();
@@ -87,11 +59,54 @@ public class MainPane extends Application
         Button addEntry = new Button("Add Entry");
         searchBar.getChildren().add(addEntry);
         content.getChildren().add(searchBar);
+
+        Group test = new Group();
+        Scene dummy = new Scene(test);
+        System.out.println(searchButton.getWidth() + " " + searchField.getWidth() + " ");
+        System.out.println("Content width before: " + content.getWidth() + " " + dummy.getWidth());
+
+        test.getChildren().add(content);
+        test.applyCss();
+        test.layout();
+
+        System.out.println("Content width after: " + content.getWidth() + " " + dummy.getWidth());
+
         contentArea.getChildren().setAll(content);
 
         root.getChildren().addAll(topArea, contentArea);
 
+        topHeight.bind(parentHeight.divide(8));
+
+        topHeight.addListener((prop, oldVal, newVal) ->
+        {
+            System.out.println("-----------------------------------");
+            System.out.println("topHeight change:");
+            System.out.println(oldVal + " " + newVal);
+            contentArea.setLayoutY((double) newVal * 1.5);
+        });
+
+        topWidth.bind(parentWidth);
+
+        topWidth.addListener((prop, oldVal, newVal) ->
+        {
+            System.out.println("LayoutX before: " + contentArea.getLayoutX());
+            // Hier liegt das Problem: contentArea.getWidth() gibt 0 zurï¿½ck bis
+            // das Fenster in der Breite verï¿½ndert wird.
+            // Ich kann aufgrund der Bindings den Wert anfangs nicht festlegen
+            // und will dies eigentlich auch nicht, da
+            // ich die Fenstergrï¿½ï¿½e gerne aus einer Property Datei einlesen
+            // wï¿½rde, dies also nicht Hardcoden will.
+
+            contentArea.setLayoutX(((double) newVal - content.getWidth()) / 2);
+            System.out.println("****************************content width*********************");
+            Pane p = (Pane) contentArea.getChildren().get(0);
+            System.out.println(p.getWidth());
+            System.out.println("LayoutX after: " + contentArea.getLayoutX());
+        });
+
         Scene scene = new Scene(root, 800, 400);
+        root.applyCss();
+        root.layout();
         primaryStage.setScene(scene);
         primaryStage.setTitle("Bindings-Test");
         primaryStage.show();
