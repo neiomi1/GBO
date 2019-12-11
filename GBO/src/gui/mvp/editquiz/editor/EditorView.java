@@ -43,6 +43,7 @@ public class EditorView extends VBox
 
     private Alert alert;
 
+    // !! RESULTCONVERTER + Dialog<Question>
     private Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 
     private TextArea questionText = new TextArea();
