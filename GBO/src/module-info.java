@@ -102,4 +102,6 @@ module gbo
     exports gui.mvp.editquiz;
 
     opens gui.mvp.editquiz.model;
+
+    exports gui.graphics.sinus;
 }
