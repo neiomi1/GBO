@@ -29,7 +29,7 @@ public class SinusModel
     public void updateModel()
     {
         points.clear();
-        for (double n : IntStream.rangeClosed(-1000, 1000).mapToDouble(i -> i / 100.0).toArray())
+        for (double n : IntStream.rangeClosed((int) (-100 * (frequency + amplitude + 1)), (int) (100 * (frequency + amplitude + 1))).mapToDouble(i -> i / 100.0).toArray())
         {
             points.put(n, calculatePoint(n));
         }
@@ -95,6 +95,8 @@ public class SinusModel
     {
         SinusModel model = new SinusModel();
         model.updateModel();
+
+        System.out.println(model.points.size());
         for (double n : model.points.keySet())
         {
             System.out.println(String.format("X: %f\tY: %f", n, model.points.get(n)));
