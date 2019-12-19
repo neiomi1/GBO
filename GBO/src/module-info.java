@@ -87,6 +87,12 @@ module gbo
 
     exports ueb.ueb06.a04;
 
+    exports ueb.ueb11.a01;
+
+    exports ueb.ueb11.a02;
+
+    exports ueb.ueb11.a03;
+
     exports gui.country.combo;
 
     exports tutorial.woche_06;
