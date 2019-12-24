@@ -27,6 +27,8 @@ module gbo
 
     opens gui.intro;
 
+    exports gui.mvp.undoredoquiz;
+
     exports gui.mvp.contact;
 
     exports gui.mvp.contact.detail;
@@ -104,6 +106,8 @@ module gbo
     exports tutorial.woche_08.bindingTest;
 
     exports ueb.ueb07.a02;
+
+    exports ueb.ueb12.a01.undoredoquiz;
 
     exports gui.mvp.editquiz;
 
