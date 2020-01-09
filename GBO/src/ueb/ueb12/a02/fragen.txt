@@ -1,0 +1,6 @@
+Frage1 {Antwort10; Antwort11;  ... } 
+Frage2 {Antwort20; Antwort22;  ... } 
+Frage3 {Antwort30; Antwort31;  ... } 
+Frage4 {Antwort40; Antwort41;  ... } 
+Frage5 {Antwort50; Antwort51;  ... } 
+Frage6 {Antwort60; Antwort61;  ... } 

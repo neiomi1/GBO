@@ -51,6 +51,8 @@ module gbo
 
     exports gui.mvp.basicquiz;
 
+    exports gui.mvp.dndquiz;
+
     exports gui.properties;
 
     exports gui.shapes;
@@ -114,4 +116,6 @@ module gbo
     opens gui.mvp.editquiz.model;
 
     exports gui.graphics.sinus;
+
+    exports ueb.ueb12.a02;
 }

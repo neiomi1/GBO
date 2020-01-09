@@ -3,16 +3,16 @@ package ueb.ueb12.a01.undoredoquiz;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import gui.mvp.undoredoquiz.editor.EditorPresenter;
-import gui.mvp.undoredoquiz.editor.EditorView;
-import gui.mvp.undoredoquiz.game.QuizPresenter;
-import gui.mvp.undoredoquiz.game.QuizView;
-import gui.mvp.undoredoquiz.main.MainPresenter;
-import gui.mvp.undoredoquiz.main.MainView;
-import gui.mvp.undoredoquiz.model.Model;
-import gui.mvp.undoredoquiz.model.Question;
-import gui.mvp.undoredoquiz.overview.OverviewPresenter;
-import gui.mvp.undoredoquiz.overview.OverviewView;
+import ueb.ueb12.a01.undoredoquiz.editor.EditorPresenter;
+import ueb.ueb12.a01.undoredoquiz.editor.EditorView;
+import ueb.ueb12.a01.undoredoquiz.game.QuizPresenter;
+import ueb.ueb12.a01.undoredoquiz.game.QuizView;
+import ueb.ueb12.a01.undoredoquiz.main.MainPresenter;
+import ueb.ueb12.a01.undoredoquiz.main.MainView;
+import ueb.ueb12.a01.undoredoquiz.model.Model;
+import ueb.ueb12.a01.undoredoquiz.model.Question;
+import ueb.ueb12.a01.undoredoquiz.overview.OverviewPresenter;
+import ueb.ueb12.a01.undoredoquiz.overview.OverviewView;
 
 public class Main extends Application
 {
