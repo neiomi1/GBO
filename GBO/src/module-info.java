@@ -118,4 +118,6 @@ module gbo
     exports gui.graphics.sinus;
 
     exports ueb.ueb12.a02;
+
+    exports ueb.ueb12.a03;
 }
