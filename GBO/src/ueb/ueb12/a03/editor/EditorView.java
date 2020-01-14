@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -109,6 +110,11 @@ public class EditorView extends VBox
                         }
                     }
                 };
+
+                cell.setOnDragDetected(e -> onCellDragDetected(e));
+                cell.setOnDragOver(e -> onCellDragOver(e));
+                cell.setOnDragDropped(e -> onCellDragDropped(e));
+                cell.setOnDragDone(e -> onCellDragDone(e));
                 return cell;
             }
 
@@ -439,4 +445,48 @@ public class EditorView extends VBox
         }
     }
 
+    private void onCellDragDetected(MouseEvent e)
+    {
+        System.out.println("Dragging");
+        @SuppressWarnings("unchecked")
+        ListCell<Question> source = (ListCell<Question>) e.getSource();
+        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(String.valueOf(source.getIndex()));
+        db.setContent(content);
+    }
+
+    private void onCellDragOver(DragEvent e)
+    {
+        System.out.println("Dragged over");
+        @SuppressWarnings("unchecked")
+        ListCell<Question> target = (ListCell<Question>) e.getSource();
+        if (e.getGestureSource() != target && e.getDragboard().hasString())
+        {
+            e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+    }
+
+    private void onCellDragDropped(DragEvent e)
+    {
+        System.out.println("Dragging Dropped");
+        @SuppressWarnings("unchecked")
+        ListCell<Question> target = (ListCell<Question>) e.getSource();
+        Dragboard db = e.getDragboard();
+        ObservableList<Question> items = questions.getItems();
+        int targetIdx = target.getIndex();
+        int sourceIdx = Integer.valueOf(db.getString());
+
+        Question temp = items.get(sourceIdx);
+        items.set(sourceIdx, items.get(targetIdx));
+        items.set(targetIdx, temp);
+
+        System.out.println("Len :" + items.size());
+        e.setDropCompleted(true);
+    }
+
+    private void onCellDragDone(DragEvent e)
+    {
+        e.consume();
+    }
 }

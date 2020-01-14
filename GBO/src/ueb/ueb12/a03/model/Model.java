@@ -3,15 +3,18 @@ package ueb.ueb12.a03.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Model
 {
     private int counter;
 
-    private List<Question> list;
+    private ObservableList<Question> list;
 
     public Model()
     {
-        list = new ArrayList<Question>();
+        list = FXCollections.observableList(new ArrayList<Question>());
     }
 
     public void addQuestion(Question question)
@@ -56,7 +59,7 @@ public class Model
 
     }
 
-    public List<Question> getQuestions()
+    public ObservableList<Question> getQuestions()
     {
         return this.list;
     }
