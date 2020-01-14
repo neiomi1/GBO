@@ -80,14 +80,12 @@ public class QuizView extends VBox
         {
             getChildren().setAll(title, answerContainer, answerBoard, next);
             List<Node> toRemove = new ArrayList<Node>();
-            answerBoard.getChildren().stream().forEach(e ->
+            answerBoard.getChildren().parallelStream().forEach(e ->
             {
                 if (e instanceof Label)
                 {
-                    if (!((Label) e).getText().isEmpty())
-                    {
-                        toRemove.add(e);
-                    }
+                    toRemove.add(e);
+
                 }
             });
             answerBoard.getChildren().removeAll(toRemove);
@@ -97,10 +95,8 @@ public class QuizView extends VBox
             {
                 if (e instanceof Label)
                 {
-                    if (!((Label) e).getText().isEmpty())
-                    {
-                        toRemove.add(e);
-                    }
+                    toRemove.add(e);
+
                 }
             });
             answerContainer.getChildren().removeAll(toRemove);

@@ -103,7 +103,7 @@ public class EditorPresenter
                 empty = true;
             }
         }
-        if (right == -1 || quest.isBlank() || empty)
+        if (quest.isBlank() || empty)
         {
 
         }
@@ -131,12 +131,17 @@ public class EditorPresenter
 
     public void addQuestion()
     {
-        ButtonType action = editorView.showAddDialog();
-        if (action != null && action.getButtonData() == ButtonData.APPLY)
+        ButtonType selection = editorView.addQuestionTypeDialog();
+        if (selection != null && selection.getButtonData() == ButtonData.APPLY)
         {
-            saveQuestion();
+            ButtonType action = editorView.showAddDialog();
+            if (action != null && action.getButtonData() == ButtonData.APPLY)
+            {
+                saveQuestion();
+            }
+            editorView.updateList(model.getQuestions());
         }
-        editorView.updateList(model.getQuestions());
+
     }
 
     public int getCorrectAnswer()

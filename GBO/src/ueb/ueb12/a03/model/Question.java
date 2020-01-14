@@ -45,14 +45,24 @@ public class Question
         if (this.indexOfCorrectAnswer < 0)
         {
             boolean flag = true;
+            boolean notEmpty = false;
             this.answers++;
             for (int i = 0; i < possibleAnswers.length; i++)
             {
+                System.out.println(String.format("Answer %d: %s", i, answer.get(i)));
+                if (!answer.get(i).isBlank())
+                {
+                    notEmpty = true;
+                }
                 if (!possibleAnswers[i].contentEquals(answer.get(i)))
                 {
                     flag = false;
                     break;
                 }
+            }
+            if (!notEmpty)
+            {
+                this.answers--;
             }
             if (flag)
             {

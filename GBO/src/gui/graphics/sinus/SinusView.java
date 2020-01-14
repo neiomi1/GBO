@@ -19,6 +19,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class SinusView extends VBox
@@ -62,6 +63,11 @@ public class SinusView extends VBox
         drawingSpace.setClip(sinusCurve);
         drawingSpace.setPrefWidth(400);
         drawingSpace.setPrefHeight(400);
+
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(drawingSpace.widthProperty());
+        clip.heightProperty().bind(drawingSpace.heightProperty());
+        drawingSpace.setClip(clip);
 
         xAxis = new Line(780 / 2, 0, 780 / 2, 300);
         yAxis = new Line(0, 300 / 2, 780, 300 / 2);

@@ -19,13 +19,25 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.util.Callback;
 import ueb.ueb12.a03.model.Question;
 
 public class EditorView extends VBox
 {
+
+    private static final String[] ANSWER_TYPES = new String[]
+    { "DragAndDrop", "Select" };
+
+    private GridPane typeSelector;
 
     private EditorPresenter editorPresenter;
 
@@ -54,15 +66,19 @@ public class EditorView extends VBox
 
     private VBox dialogBox;
 
-    private ToggleGroup correctAnswerToggle;
+    private ToggleGroup correctAnswerToggle, answerTypes;
 
     private HBox editButtons;
 
-    private ButtonType update, add, cancel;
+    private ButtonType update, add, cancel, accept;
 
     private int userdataCount;
 
     private int correctAnswerIndex;
+
+    private boolean isDrag;
+
+    private String tempString;
 
     public EditorView()
     {
@@ -100,7 +116,7 @@ public class EditorView extends VBox
 
         this.addQuestion = new Button("Frage hinzufügen");
         this.addQuestion.setId("addQuestion");
-        this.addQuestion.setOnAction(e -> editorPresenter.addQuestion());
+        this.addQuestion.setOnAction(e -> addDialog());
 
         this.editQuestion = new Button("Frage editieren");
         this.editQuestion.setId("editQuestion");
@@ -136,9 +152,21 @@ public class EditorView extends VBox
         dialogBox.getChildren().addAll(useless, questionText, addAnswer, answers);
 
         dialog.getDialogPane().setContent(dialogBox);
+        dialog.setResizable(true);
 
-        // dialog.setScene(new Scene(dialogBox));
-        // dialog.setTitle("Dialog");
+        typeSelector = new GridPane();
+        answerTypes = new ToggleGroup();
+        for (int i = 0; i < ANSWER_TYPES.length; i++)
+        {
+            RadioButton b = new RadioButton();
+            b.setToggleGroup(answerTypes);
+            Label l = new Label(ANSWER_TYPES[i]);
+            typeSelector.add(b, 0, 2 + i * 2);
+            typeSelector.add(l, 1, 2 + 2 * i);
+        }
+        Label command = new Label("W\u00e4hlen sie einen Fragetyp aus: ");
+        typeSelector.add(command, 1, 0);
+        accept = new ButtonType("Ausw\u00e4hlen", ButtonData.APPLY);
 
     }
 
@@ -154,7 +182,39 @@ public class EditorView extends VBox
 
     public void addDialog()
     {
+        this.editorPresenter.addQuestion();
     };
+
+    public ButtonType addQuestionTypeDialog()
+    {
+        if (answerTypes.getSelectedToggle() != null)
+        {
+            answerTypes.getSelectedToggle().setSelected(false);
+        }
+        Dialog<ButtonType> questionTypeDialog = new Dialog<ButtonType>();
+        questionTypeDialog.setResizable(true);
+        questionTypeDialog.setTitle("Fragetyp Auswahl");
+        questionTypeDialog.getDialogPane().setContent(typeSelector);
+        questionTypeDialog.getDialogPane().getButtonTypes().addAll(cancel, accept);
+        Optional<ButtonType> b = questionTypeDialog.showAndWait();
+        if (b.isPresent())
+        {
+            return b.get();
+        }
+        return null;
+    }
+
+    public String getSelectedQuestionType()
+    {
+        if (answerTypes.getSelectedToggle() != null)
+        {
+            return ANSWER_TYPES[answerTypes.getToggles().indexOf(answerTypes.getSelectedToggle())];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public void editDialog()
     {
@@ -204,6 +264,14 @@ public class EditorView extends VBox
 
     public ButtonType showAddDialog()
     {
+        if (getSelectedQuestionType().contentEquals("DragAndDrop"))
+        {
+            isDrag = true;
+        }
+        else
+        {
+            isDrag = false;
+        }
         userdataCount = 0;
         correctAnswerToggle.getToggles().clear();
         answers.getChildren().clear();
@@ -222,6 +290,11 @@ public class EditorView extends VBox
 
     public ButtonType showEditDialog(Question question)
     {
+        isDrag = false;
+        if (question.getIndexOfCorrectAnswer() < 0)
+        {
+            isDrag = true;
+        }
         correctAnswerIndex = editorPresenter.getCorrectAnswer();
         System.out.println(correctAnswerIndex);
 
@@ -250,19 +323,38 @@ public class EditorView extends VBox
 
     public void addAnswerFrame(String s)
     {
+
         HBox frame = new HBox();
-        RadioButton button = new RadioButton();
-        button.setUserData(String.format("%d", userdataCount));
-        if (correctAnswerIndex == userdataCount)
-        {
-            button.setSelected(true);
-        }
-        button.setToggleGroup(correctAnswerToggle);
         TextField answ = new TextField(s);
+        answ.setFont(Font.font("Arial", 15));
+        if (isDrag)
+        {
+            Label number = new Label(String.format("%d.", userdataCount + 1));
+            number.setFont(Font.font("Arial", 20));
+            frame.getChildren().add(number);
+            answ.setOnDragDetected(e -> onDragDetected(e));
+            answ.setOnDragEntered(e -> onDragEntered(e));
+            answ.setOnDragOver(e -> onDragOver(e));
+            answ.setOnDragExited(e -> onDragExited(e));
+            answ.setOnDragDropped(e -> onDragDropped(e));
+            answ.setOnDragDone(e -> onDragDone(e));
+        }
+        else
+        {
+            RadioButton button = new RadioButton();
+            button.setUserData(String.format("%d", userdataCount));
+            if (correctAnswerIndex == userdataCount)
+            {
+                button.setSelected(true);
+            }
+            button.setToggleGroup(correctAnswerToggle);
+            frame.getChildren().add(button);
+        }
+
         Button del = new Button("L\u00f6schen");
         del.setOnAction(e -> answers.getChildren().remove(frame));
 
-        frame.getChildren().addAll(button, answ, del);
+        frame.getChildren().addAll(answ, del);
         answers.getChildren().add(frame);
         userdataCount++;
     }
@@ -299,4 +391,52 @@ public class EditorView extends VBox
             return -1;
         }
     }
+
+    private void onDragDetected(MouseEvent e)
+    {
+        TextField source = (TextField) e.getSource();
+        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(source.getText());
+        db.setContent(content);
+    }
+
+    private void onDragOver(DragEvent e)
+    {
+        TextField target = (TextField) e.getSource();
+        if (e.getGestureSource() != target && e.getDragboard().hasString())
+        {
+            e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+    }
+
+    private void onDragEntered(DragEvent e)
+    {
+
+    }
+
+    private void onDragExited(DragEvent e)
+    {
+
+    }
+
+    private void onDragDropped(DragEvent e)
+    {
+        TextField target = (TextField) e.getSource();
+        Dragboard db = e.getDragboard();
+        tempString = target.getText();
+        target.setText(db.getString());
+        e.setDropCompleted(true);
+    }
+
+    private void onDragDone(DragEvent e)
+    {
+        System.out.println("Drag done");
+        TextField source = (TextField) e.getSource();
+        if (e.getTransferMode() == TransferMode.MOVE)
+        {
+            source.setText(tempString);
+        }
+    }
+
 }

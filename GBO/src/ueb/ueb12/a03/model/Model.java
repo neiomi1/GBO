@@ -49,10 +49,11 @@ public class Model
 
     public void checkAnswer(Question question, List<String> answer, int indexOfAnswer)
     {
-        if (answer.size() == question.getNumberOfAnswers())
+        if (answer.size() == question.getNumberOfAnswers() || (indexOfAnswer > 0 && indexOfAnswer < answer.size()))
         {
             question.check(answer, indexOfAnswer);
         }
+
     }
 
     public List<Question> getQuestions()
@@ -60,7 +61,7 @@ public class Model
         return this.list;
     }
 
-    public void replaceQuestion(Question newQuestion, Question oldQuestion, int index)
+    public void replaceQuestion(Question oldQuestion, Question newQuestion, int index)
     {
         if (index < list.size())
         {
